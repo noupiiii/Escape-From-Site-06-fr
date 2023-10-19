@@ -1,0 +1,19 @@
+================================
+SOUNDS
+================================
+Prison cell door :
+author endritprenku
+Shot :
+author MATRIXXX_
+Reload :
+author nioczkus
+Card pickup :
+author MATRIXXX_
+Step sound :
+author m0ments
+Error sound :
+author Breviceps
+================================
+TEXTURES
+================================
+Map
