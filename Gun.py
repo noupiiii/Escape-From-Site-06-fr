@@ -11,6 +11,13 @@ from pygame import mixer
 
 class Gun:
     def __init__(self, position: Position, texture: Textures, screen: pygame.display) -> None:
+        """Constructeur de la classe Gun. Initialise une arme avec sa position, sa texture et l'écran de jeu.
+
+        Args:
+            position (Position): Position de l'arme sur la carte.
+            texture (Textures): Textures utilisées pour l'arme.
+            screen (pygame.display): Surface d'affichage.
+        """
         self.position: Position = position
         self.texture = texture.textures["gun"]
 
@@ -27,6 +34,7 @@ class Gun:
         self.recuperer = False
 
     def display(self):
+        """Affiche l'arme sur l'écran."""
         if self.visible == True:
             self.texture = pygame.transform.scale(
                 self.texture, (self.size, self.size))
@@ -36,6 +44,14 @@ class Gun:
             self.screen.blit(self.texture, (x_pos, y_pos))
 
     def detecte_gun_recuprer(self, player_position: Position, current_player: Player, guns, index):
+        """Détecte si le joueur a récupéré une arme en interagissant avec elle.
+
+        Args:
+            player_position (Position): Position actuelle du joueur.
+            current_player (Player): Joueur actuel.
+            guns (Guns): Classe de gestion des armes.
+            index (int): Index de l'arme.
+        """
         if self.recuperer == False:
             if player_position.x == self.position.x and player_position.y == self.position.y:
                 self.visible = False
@@ -47,7 +63,14 @@ class Gun:
 
 class Guns:
     def __init__(self, map: list, textures: Textures, screen: pygame.display, saveDict=None) -> None:
+        """Constructeur de la classe Guns. Initialise la gestion des armes.
 
+        Args:
+            map (list): Carte du jeu.
+            textures (Textures): Textures utilisées pour les armes.
+            screen (pygame.display): Surface d'affichage.
+            saveDict (dict, optional): Dictionnaire de sauvegarde. Defaults to None.
+        """
         self.saveDict = saveDict
 
         self.screen = screen
@@ -80,18 +103,18 @@ class Guns:
                           self.textures, self.screen)
                 self.guns.append(gun)
 
-                # # Assurez-vous que la valeur est bien un tuple
-                # if isinstance(valeur_tuple, tuple) and len(valeur_tuple) == 2:
-                #     x, y = valeur_tuple
-                # player = Player(Position(x, y), i,
-                #                 textures.textures[f"player{i}"])
-                # self.players.append(player)
-
     def display(self):
+        """Affiche les armes sur l'écran."""
         for gun in range(len(self.guns)):
             self.guns[gun].display()
 
     def detecte_gun_recuperer(self, player_position: Position, current_player: Player):
+        """Détecte si le joueur a récupéré une arme en interagissant avec elle.
+
+        Args:
+            player_position (Position): Position actuelle du joueur.
+            current_player (Player): Joueur actuel.
+        """
         for index, gun in enumerate(self.guns):
             gun.detecte_gun_recuprer(
                 player_position, current_player, self, index)

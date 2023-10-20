@@ -7,14 +7,24 @@ import pygame
 
 class Cards:
     def __init__(self, textures, screen: pygame.display, saveDict=None) -> None:
-        self.cards_list = []
+        """Constructeur de la classe Cards. Initialise une liste de cartes, textures, écran et un dictionnaire pour sauvegarde.
 
+        Args:
+            textures: Les textures utilisées dans le jeu.
+            screen (pygame.display): La surface d'affichage.
+            saveDict (dict, optionnel): Un dictionnaire pour la sauvegarde des cartes (par défaut, `None`).
+        """
+        self.cards_list = []
         self.textures = textures
         self.screen = screen
-
         self.saveDict: dict = saveDict
 
     def create_cards(self, map: list):
+        """Crée les cartes en fonction des positions possibles sur la carte du jeu. Si un dictionnaire de sauvegarde est fourni, les cartes sont créées en utilisant les positions de sauvegarde.
+
+        Args:
+            map (list): La carte du jeu sous forme de liste.
+        """
         if self.saveDict is None:
             possible_card_1 = []
             possible_card_2 = []
@@ -69,19 +79,22 @@ class Cards:
 
             for i in range(4):
                 valeur_gun = eval(self.saveDict["cards_pickup"][i])
-                print(valeur_gun)
                 self.cards_list[i].visible_ui = valeur_gun
 
-            #     self.cards_list[i].visible_ui = valeur_gun
-            #     print("test")
-
     def display(self):
-
+        """Affiche les cartes à la fois sur la carte du jeu et dans l'interface utilisateur."""
         for cards in self.cards_list:
             cards.display_on_map(self.screen)
             cards.display_ui(self.screen)
 
     def detecte_recuperer_carte(self, player_position: Position, screen: pygame.display, texture, map):
+        """Détecte si le joueur a récupéré une carte et gère la visibilité des cartes. Cette fonction appelle la méthode correspondante de la classe Card pour chaque carte.
 
+        Args:
+            player_position (Position): La position du joueur.
+            screen (pygame.display): La surface d'affichage.
+            texture: Les textures utilisées dans le jeu.
+            map: La carte du jeu.
+        """
         for cards in self.cards_list:
             cards.detecte_carte_recuprer(player_position, screen, texture, map)

@@ -3,12 +3,22 @@ import pygame
 
 class Escape:
     def __init__(self, screen) -> None:
+        """Constructeur de la classe Escape. Initialise les paramètres pour gérer l'écran de pause.
+
+        Args:
+            screen: La surface d'affichage.
+        """
         self.screen = screen
         self.visible = False
         self.font = "assets/fonts/iknowaghost.ttf"
         self.font = pygame.font.Font(self.font, 50)
 
     def display(self, event):
+        """Affiche l'écran de pause et les boutons de reprise, sauvegarde et quitter.
+
+        Args:
+            event: L'événement pygame en cours de traitement.
+        """
         if self.visible:
             pygame.draw.rect(self.screen, (0, 0, 0),
                              (1920//2 - 500//2, 1080//2 - 700//2, 500, 700))
@@ -23,6 +33,11 @@ class Escape:
                 return save
 
     def detecte_escape(self, event: pygame.event):
+        """Détecte l'appui sur la touche 'Échap' pour afficher ou masquer l'écran de pause.
+
+        Args:
+            event: L'événement pygame en cours de traitement.
+        """
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 if self.visible == False:
@@ -31,6 +46,11 @@ class Escape:
                     self.visible = False
 
     def button_resume(self, event):
+        """Gère le bouton de reprise. Si le bouton est cliqué, masque l'écran de pause.
+
+        Args:
+            event: L'événement pygame en cours de traitement.
+        """
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         button_x = (1920 - 300) // 2  # Largeur du bouton = 300
@@ -54,7 +74,14 @@ class Escape:
         self.screen.blit(texte_surface, text_rect)
 
     def button_save(self, event):
+        """Gère le bouton de sauvegarde. Si le bouton est cliqué, renvoie "save".
 
+        Args:
+            event: L'événement pygame en cours de traitement.
+
+        Returns:
+            str: "save" si le bouton de sauvegarde est cliqué, sinon None.
+        """
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         button_x = (1920 - 300) // 2  # Largeur du bouton = 300
@@ -78,6 +105,14 @@ class Escape:
         self.screen.blit(texte_surface, text_rect)
 
     def button_quit(self, event):
+        """Gère le bouton de quitter. Si le bouton est cliqué, masque l'écran de pause et renvoie False.
+
+        Args:
+            event: L'événement pygame en cours de traitement.
+
+        Returns:
+            bool: False pour indiquer que le bouton de quitter a été cliqué.
+        """
 
         mouse_x, mouse_y = pygame.mouse.get_pos()
 

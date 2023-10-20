@@ -6,12 +6,25 @@ from Position import Position
 
 class Save:
     def __init__(self):
+        """
+        Initialise un objet de sauvegarde en enregistrant la date actuelle.
+        """
         current_datetime = datetime.datetime.now()
         self.date_string = current_datetime.strftime("%Y-%m-%d %H:%M:%S")
 
     def save(self, players_positions, player_turn, player_gun, guns_position, guards_position, cards_position, cards_pickup):
-        """Enregistre ces données dans un fichier texte."""
+        """
+        Enregistre les données de jeu dans un fichier texte.
 
+        Args:
+            players_positions (list[Position]): Les positions des joueurs.
+            player_turn (int): Le tour du joueur.
+            player_gun (list[bool]): Une liste de booléens indiquant si chaque joueur a une arme.
+            guns_position (list[Position]): Les positions des armes.
+            guards_position (list[Position]): Les positions des gardes.
+            cards_position (list[Position]): Les positions des cartes.
+            cards_pickup (list[int]): Les cartes ramassées par les joueurs.
+        """
         # Ouvrir un fichier texte en écriture.
         with open(f"./saves/save{self.countFiles()}.txt", "w") as f:
 
@@ -51,7 +64,12 @@ class Save:
         f.close()
 
     def countFiles(self):
+        """
+        Compte les fichiers de sauvegarde existants dans le répertoire de sauvegarde.
 
+        Returns:
+            int: Le nombre de fichiers de sauvegarde existants.
+        """
         initial_count = 0
         for path in pathlib.Path("./saves").iterdir():
             if path.is_file():

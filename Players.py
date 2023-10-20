@@ -7,6 +7,14 @@ from Textures import Textures
 
 class Players:
     def __init__(self, textures: Textures, screen: pygame.display, saveDict=None) -> None:
+        """
+        Classe représentant un ensemble de joueurs.
+
+        Args:
+            textures (Textures): Les textures utilisées pour les joueurs.
+            screen (pygame.display): La surface pygame sur laquelle afficher les joueurs.
+            saveDict (dict, optional): Un dictionnaire contenant des données de sauvegarde. Par défaut, None.
+        """
         self.saveDict = saveDict
         self.screen = screen
         self.textures = textures
@@ -35,9 +43,11 @@ class Players:
                 self.players[i].gun = valeur_gun
 
     def display(self):
+        """Affiche tous les joueurs sur l'écran."""
         for player in self.players:
             player.display(self.screen)
 
     def set_texture_players(self):
+        """Définit les textures des joueurs en fonction de leurs numéros."""
         for i, player in enumerate(self.players):
             player.texture = self.textures.textures[f"player{i + 1}"]

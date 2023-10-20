@@ -12,7 +12,12 @@ from Textures import Textures
 
 class Guard:
     def __init__(self, position: Position, textures: Textures) -> None:
+        """Constructeur de la classe Guard. Initialise un garde avec sa position et ses textures.
 
+        Args:
+            position (Position): Position du garde sur la carte.
+            textures (Textures): Textures utilisées pour le garde.
+        """
         self.sound_kill = mixer.Sound("assets/sounds/kill.wav")
         self.sound_jail = mixer.Sound("assets/sounds/door.mp3")
 
@@ -29,23 +34,42 @@ class Guard:
         self.visible = True
 
     def move(self, new_position: Position, map: list) -> None:
+        """Déplace le garde vers une nouvelle position si la case est valide.
+
+        Args:
+            new_position (Position): Nouvelle position du garde.
+            map (list): Carte du jeu.
+        """
         self.position: Position = new_position
 
     def id_valid_move(self, x, y, map) -> None:
-        print("valid")
+        """Vérifie si le déplacement du garde vers une case est valide.
+
+        Args:
+            x (int): Coordonnée en X de la case.
+            y (int): Coordonnée en Y de la case.
+            map (list): Carte du jeu.
+
+        Returns:
+            bool: True si le déplacement est valide, False sinon.
+        """
         if ((x >= 0 and x+1 <= 30) and (y >= 0 and y+1 <= 20)):
-            print("test")
             if map[y][x] in self.inaccessible_cases:
-                print(map[y][x])
                 return False
             else:
                 return True
 
     def auto_move(self, distance: int, map: Map, screen):
+        """Effectue un mouvement automatique du garde sur la carte.
+
+        Args:
+            distance (int): Nombre de mouvements à effectuer.
+            map (Map): Carte du jeu.
+            screen (pygame.display): Surface d'affichage.
+        """
         for _ in range(1):
             move = 0
             while move < 5:
-                print(move)
                 sens = rd.randint(1, 4)
                 if sens == 1:
                     x, y = self.position.x, self.position.y + 1
@@ -61,12 +85,24 @@ class Guard:
                     move = move + 1
 
     def display(self, screen: pygame.display):
+        """Affiche le garde sur l'écran.
+
+        Args:
+            screen (pygame.display): Surface d'affichage.
+        """
         if self.visible:
             x_pos = (self.position.x - 15) * 32 + self.window_center_x + 4
             y_pos = (self.position.y - 10) * 32 + self.window_center_y + 4
             screen.blit(self.texture, (x_pos, y_pos))
 
     def detecte_player(self, current_player: Player, index, guards):
+        """Détecte la présence du joueur et gère les interactions avec le joueur.
+
+        Args:
+            current_player (Player): Joueur actuel.
+            index (int): Index du garde.
+            guards (Guards): Classe de gestion des gardes.
+        """
         if self.position.x == current_player.position.x and self.position.y == current_player.position.y:
             if current_player.gun:
                 self.visible = False
@@ -81,7 +117,14 @@ class Guard:
 
 class Guards:
     def __init__(self, map: list, textures: Textures, screen: pygame.display, saveDict=None) -> None:
+        """Constructeur de la classe Guards. Initialise la gestion des gardes.
 
+        Args:
+            map (list): Carte du jeu.
+            textures (Textures): Textures utilisées pour les gardes.
+            screen (pygame.display): Surface d'affichage.
+            saveDict (dict, optional): Dictionnaire de sauvegarde. Defaults to None.
+        """
         self.saveDict = saveDict
         self.map = map
 
@@ -118,13 +161,24 @@ class Guards:
                 self.guard.append(guard)
 
     def display(self):
+        """Affiche les gardes sur l'écran."""
         for i in range(len(self.guard)):
             self.guard[i].display(self.screen)
 
     def detecte_gun_recuperer(self, current_player: Player):
+        """Détecte si le joueur a récupéré un pistolet en interagissant avec un garde.
+
+        Args:
+            current_player (Player): Joueur actuel.
+        """
         for index, i in enumerate(self.guard):
             i.detecte_player(current_player, index, self)
 
     def automove(self, screen):
+        """Effectue le mouvement automatique des gardes sur la carte.
+
+        Args:
+            screen (pygame.display): Surface d'affichage.
+        """
         for guards in self.guard:
             guards.auto_move(10, self.map, screen)

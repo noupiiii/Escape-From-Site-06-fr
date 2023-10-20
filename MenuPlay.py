@@ -1,30 +1,39 @@
 import os
-import pathlib
 import pygame
-
 from Button import Button
 from Position import Position
 from MenuBox import MenuBox
 
 
 class MenuPlay:
-    def __init__(self, screen) -> None:
+    """Classe gérant le menu de chargement de sauvegarde et les nouvelles parties."""
+
+    def __init__(self, screen):
+        """Initialise le menu de chargement de sauvegarde.
+
+        Args:
+            screen (pygame.Surface): La surface de l'écran du jeu.
+        """
         self.screen = screen
 
+        # Initialisation de la police et de la boîte du menu
         self.font = "assets/fonts/iknowaghost.ttf"
         self.font = pygame.font.Font(self.font, 50)
-
         self.frame = MenuBox(self.screen)
 
+        # Création du bouton "+ new game" et initialisation
         self.newGameButton = Button(
             self.screen, "+ new game", Position(1360, 220))
 
     def loadSaves(self):
+        """Charge les fichiers de sauvegarde depuis le répertoire 'saves'.
+
+        Returns:
+            list: Une liste contenant les noms de fichiers et leur contenu.
+        """
         self.allSaves = []
         for nom_fichier in os.listdir("./saves"):
             chemin_fichier = os.path.join("./saves", nom_fichier)
-
-            # Assurez-vous que le chemin correspond à un fichier
             if os.path.isfile(chemin_fichier):
                 with open(chemin_fichier, "r") as fichier:
                     contenu = fichier.read()
@@ -32,15 +41,25 @@ class MenuPlay:
         return self.allSaves
 
     def allSavesToString(self, allSaves):
+        """Convertit les sauvegardes en chaînes de texte."""
         pass
 
     def saveDisplay(self, position: Position):
+        """Affiche un cadre pour une sauvegarde.
+
+        Args:
+            position (Position): La position du cadre.
+        """
         pygame.draw.rect(self.screen, (255, 255, 255),
                          (position.x, position.y, 250, 150), 1)
 
     def allSavesDisplay(self):
-        if self.newGameButton.visible:
+        """Affiche toutes les sauvegardes sur l'écran.
 
+        Returns:
+            str: Le nom du fichier de sauvegarde sélectionné (ou chaîne vide).
+        """
+        if self.newGameButton.visible:
             fontF = "assets/fonts/iknowaghost.ttf"
             arrow_play = pygame.image.load("assets/ui/arrow.png")
             arrow_play = pygame.transform.scale(arrow_play, (20, 20))
@@ -56,14 +75,11 @@ class MenuPlay:
                 font = pygame.font.Font(fontF, 40)
                 self.saveDisplay(Position(x, y))
 
-                # Affichez le nom du fichier dans le cadre
+                # Affiche le nom du fichier dans le cadre
                 text_surface = font.render(
                     nom_fichier[:-4], True, (255, 255, 255))
                 text_rect = text_surface.get_rect()
-                # Centrez le texte dans le rectangle
                 text_rect.center = (x + 125, y + 75)
-
-                # Dessinez le texte dans le cadre
                 self.screen.blit(text_surface, (x+20, y+10))
 
                 lignes = contenu.split('\n')
@@ -71,17 +87,14 @@ class MenuPlay:
                     lignes) >= 2 else "Date inconnue"
 
                 font = pygame.font.Font(fontF, 20)
-
                 text_surface = font.render(
                     date_sauvegarde[:-9], True, (255, 255, 255))
                 text_rect = text_surface.get_rect()
                 text_rect.bottomright = (x + 230, y + 140)
-
-                # Dessinez la date de sauvegarde
                 self.screen.blit(text_surface, text_rect)
 
                 arrow_rect = pygame.Rect(x+200, y+20, 20, 20)
-                # Détecter si la souris est positionnée sur la flèche
+                # Détecte si la souris est positionnée sur la flèche
                 if arrow_rect.collidepoint(pygame.mouse.get_pos()):
                     # Souris sur la flèche
                     # Clic gauche de la souris
@@ -102,6 +115,14 @@ class MenuPlay:
                     y += 150 + spacing
 
     def loadSave(self, fileName):
+        """Charge une sauvegarde à partir d'un fichier.
+
+        Args:
+            fileName (str): Le nom du fichier de sauvegarde à charger.
+
+        Returns:
+            dict: Les données de la sauvegarde chargée sous forme de dictionnaire.
+        """
         # Initialiser un dictionnaire vide pour stocker les données
         data = {}
 
@@ -135,4 +156,4 @@ class MenuPlay:
             data[section_actuelle] = section_data
 
         # Maintenant, vous avez un dictionnaire où les clés sont les noms de section et les valeurs sont les données correspondantes
-        return (data)
+        return data

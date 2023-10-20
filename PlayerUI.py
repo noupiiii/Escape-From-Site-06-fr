@@ -6,11 +6,24 @@ from Textures import Textures
 
 class PlayerUI:
     def __init__(self, textures: Textures) -> None:
+        """
+        Initialise une interface utilisateur pour afficher les informations des joueurs.
+
+        Args:
+            textures (Textures): Les textures utilisées pour l'interface.
+        """
         self.font = "assets/fonts/iknowaghost.ttf"
         self.font = pygame.font.Font(self.font, 20)
         self.gunTexture = textures.textures["gun"]
 
     def setUI1(self, screen, players: Players):
+        """
+        Affiche l'interface utilisateur pour le joueur 1.
+
+        Args:
+            screen (pygame.display): La surface pygame sur laquelle afficher l'interface.
+            players (Players): La classe contenant les joueurs.
+        """
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(
             15, 15, 150, 100), 2, 0, 0, 0, 0, 35)
 
@@ -34,6 +47,13 @@ class PlayerUI:
             screen.blit(self.gunTexture, (20, 55))
 
     def setUI2(self, screen, players: Players):
+        """
+        Affiche l'interface utilisateur pour le joueur 2.
+
+        Args:
+            screen (pygame.display): La surface pygame sur laquelle afficher l'interface.
+            players (Players): La classe contenant les joueurs.
+        """
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(
             15, 1080-115, 150, 100), 2, 0, 0, 35)
 
@@ -55,6 +75,13 @@ class PlayerUI:
             screen.blit(self.gunTexture, (20, 1080-125))
 
     def setUI4(self, screen, players: Players):
+        """
+        Affiche l'interface utilisateur pour le joueur 4.
+
+        Args:
+            screen (pygame.display): La surface pygame sur laquelle afficher l'interface.
+            players (Players): La classe contenant les joueurs.
+        """
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(
             1920-165, 1080-115, 150, 100), 2, 0, 35)
 
@@ -76,6 +103,13 @@ class PlayerUI:
             screen.blit(self.gunTexture, (1920-90, 1080-125))
 
     def setUI3(self, screen, players: Players):
+        """
+        Affiche l'interface utilisateur pour le joueur 3.
+
+        Args:
+            screen (pygame.display): La surface pygame sur laquelle afficher l'interface.
+            players (Players): La classe contenant les joueurs.
+        """
         pygame.draw.rect(screen, (255, 255, 255), pygame.Rect(
             1920-165, 15, 150, 100), 2, 0, 0, 0, 35)
 
@@ -97,6 +131,13 @@ class PlayerUI:
             screen.blit(self.gunTexture, (1920-90, 55))
 
     def set_players_ui(self, screen, players: Players):
+        """
+        Affiche l'interface utilisateur pour tous les joueurs.
+
+        Args:
+            screen (pygame.display): La surface pygame sur laquelle afficher l'interface.
+            players (Players): La classe contenant les joueurs.
+        """
         self.setUI1(screen, players)
         self.setUI2(screen, players)
         self.setUI3(screen, players)

@@ -3,6 +3,19 @@ import pygame
 
 class Textures:
     def __init__(self) -> None:
+        """
+        Initialise un objet Textures qui stocke des textures à partir de fichiers image.
+
+        Ce dictionnaire contient des clés associées aux textures chargées.
+
+        - "gun" : Texture d'une arme.
+        - "card1", "card2", "card3", "card4" : Textures de cartes.
+        - "player1", "player2", "player3", "player4" : Textures des entités de joueurs.
+        - "player1_selected", "player2_selected", "player3_selected", "player4_selected" : Textures des entités de joueurs sélectionnées.
+        - "guard" : Texture d'un garde.
+        - "I", "B", "C", "A", "F", "S", "X", "U", "V", "W" : Textures de la carte.
+        - "arrow", "light_ui", "light_ui_down", "zone1", "zone2", "zone3", "logo" : Textures d'éléments d'interface utilisateur.
+        """
         self.textures = {
 
             # Importation des obj :
