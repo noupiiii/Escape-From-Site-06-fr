@@ -1,3 +1,44 @@
+
+# Escape From Site 06_fr
+
+Escape From Site 06_fr est un petit jeu 2D développé dans le cadre de la SAE C1.
+Le jeu se déroule dans le complexe 06_fr (une sorte de prison remplie de créatures)
+. Le but est d'en sortir ! Malheureusement sur votre chemin vous croiserez des entitées qui ne vous laisserons pas sortir d'ici vivant.
+
+
+
+## Authors
+
+- [@onoupiii](https://www.github.com/noupiiii)
+
+
+## Language
+
+Language de programmation utilisé
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+
+
+## Demo
+
+lien d la vidéo de démo :
+## Installation
+
+Il faut dans un premier temps installer python sur votre machine (https://www.python.org/).
+Par la suite, il vous faudra installer la bibliothèque pygame
+```bash
+  pip install pygame
+```
+Vous pourrez ensuite clonner le dépôt git dans le répertoire souhaité à l'aide de la commande suivante :
+```bash
+  git clone https://github.com/noupiiii/Escape-From-Site-06-fr.git
+```
+Si vous n'avez pas git, vous pouvez installer le programme sous forme de .zip directement.
+
+Maintenant rendez-vous dans le répertoire principal, ouvrez-y un terminal et executez la commande :
+```bash
+  python3 ./Main.py
+```
 ## Règles du jeu
 
 #### Les joueurs
