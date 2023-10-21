@@ -21,7 +21,7 @@ Language de programmation utilisé
 
 ## Demo
 
-lien d la vidéo de démo :
+lien d la vidéo de démo : https://www.youtube.com/watch?v=siyT69M8kPs&ab_channel=LouisBruche
 ## Installation
 
 Il faut dans un premier temps installer python sur votre machine (https://www.python.org/).
